@@ -84,6 +84,7 @@ cask "1password-cli"
 cask "claude-code@latest"
 # OpenAI's coding agent that runs in your terminal
 cask "codex"
+cask "docker-desktop"
 cask "font-jetbrains-mono-nerd-font"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"

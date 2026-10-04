@@ -10,7 +10,7 @@ cd ~/dotfiles && ./install.sh
 ```
 
 - **macOS**: installs Homebrew + everything in `Brewfile`, then symlinks configs.
-- **Debian/Ubuntu VPS**: installs the core (zsh, tmux, neovim, lazygit, ripgrep, fd, direnv, git) plus everyday CLI (gh, node, claude, uv, yazi, just, age, lazydocker), networking (wireguard-tools, nmap, cloudflared) and infra (tfenv/terraform, helm, k9s, hcloud, gcloud, codex, 1password-cli), then symlinks (skips Ghostty/Zed).
+- **Debian/Ubuntu VPS**: installs the core (zsh, tmux, neovim, lazygit, ripgrep, fd, direnv, git) plus everyday CLI (gh, node, claude, uv, yazi, just, age, lazydocker), networking (wireguard-tools, nmap, cloudflared) and docker (engine + compose) and infra (tfenv/terraform, helm, k9s, hcloud, gcloud, codex, 1password-cli), then symlinks (skips Ghostty/Zed).
 - Existing files get moved to `~/.dotfiles-backup/<timestamp>/` before linking.
 - `./install.sh --links` only re-links, without installing packages.
 

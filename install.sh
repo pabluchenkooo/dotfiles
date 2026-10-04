@@ -65,10 +65,20 @@ install_linux_extras() {
     curl -fsSL https://downloads.1password.com/linux/keys/1password.asc \
       | sudo gpg --dearmor --yes -o /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
   fi
+  if ! has docker; then
+    local distro codename
+    distro="$(. /etc/os-release && echo "$ID")"            # ubuntu | debian
+    codename="$(. /etc/os-release && echo "$VERSION_CODENAME")"
+    apt_repo docker "https://download.docker.com/linux/$distro/gpg" \
+      "deb [arch=$deb_arch signed-by=KEYRING] https://download.docker.com/linux/$distro $codename stable"
+  fi
   has node || curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 
   sudo apt-get update
-  sudo apt-get install -y gh nodejs age nmap wireguard-tools google-cloud-cli 1password-cli
+  sudo apt-get install -y gh nodejs age nmap wireguard-tools google-cloud-cli 1password-cli \
+    docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  # run docker without sudo (takes effect on next login)
+  sudo usermod -aG docker "$USER"
 
   # ── everyday CLI ───────────────────────────────────────────────────────────
   has claude || curl -fsSL https://claude.ai/install.sh | bash

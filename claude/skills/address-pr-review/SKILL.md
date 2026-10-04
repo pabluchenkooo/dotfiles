@@ -11,7 +11,7 @@ Two phases. Never start phase 2 before the user has reviewed the doc.
 
 ## Phase 1: the response doc
 
-1. **Load context.** Read the project's conventions (CLAUDE.md, CONTRIBUTING, any architecture or style doc it points to). If the PR has a ticket or plan (in the PR body, the branch name, or a notes folder the user keeps), read it: decisions and "out of scope" there settle many comments.
+1. **Load context.** Read the project's conventions (CLAUDE.md, CONTRIBUTING, any architecture or style doc it points to) and the code-constitution skill. If the PR has a ticket or plan, load it (load-vault skill when `$NOTES_VAULT` is set, otherwise the PR body and branch name): decisions and "out of scope" there settle many comments.
 2. **Fetch the review.**
    ```
    REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
@@ -25,7 +25,7 @@ Two phases. Never start phase 2 before the user has reviewed the doc.
    - whether the reviewer is right, and the concrete scenario if not (interleavings for locks and transactions, job states for uniqueness, connection and transaction boundaries, external calls inside transactions);
    - what their suggestion would break as written;
    - whether it is inside the PR's scope. Scope is literal: a real problem outside it becomes a follow-up ticket, not code in this PR.
-4. **Write the doc** next to the ticket's plan if there is one, otherwise in `.reviews/` at the repo root: `pr-<N>-review.md`, or `pr-<N>-review-<round>.md` for later rounds (link the earlier rounds). Format below. Plain and direct, in the user's voice. No em or en dashes.
+4. **Write the doc** in the ticket's vault folder if there is one, otherwise in `.reviews/<branch>/` at the repo root (add `.reviews/` to `.git/info/exclude`): `pr-<N>-review.md`, or `pr-<N>-review-<round>.md` for later rounds (link the earlier rounds). Format below. Plain and direct, in the user's voice. No em or en dashes.
 5. **Stop.** Give the user the path, the positions in a few lines, and anything they have to decide. Do not touch code, do not reply on GitHub.
 
 ## Phase 2: implement (only after the user says go)

@@ -32,6 +32,8 @@ After install:
 | `ghostty/`, `zed/` | `~/.config/…` (macOS only) |
 | `lazygit/`, `k9s/` | `~/.config/…` |
 | `claude/` | `~/.claude` (statusline, skills; settings seeded once) |
+
+Claude skills: `code-constitution`, `elixir-antipatterns`, `review-branch`, `review-colleague-pr`, `address-pr-review`, `load-vault`. The review skills write to your notes vault when `NOTES_VAULT` is set (put it in `~/.zshrc.local`), otherwise to `.reviews/<branch>/` in the repo.
 | `codex/` | `~/.codex` (AGENTS.md linked, config seeded once) |
 | `bin/` | `~/bin` |
 | `macos/catppuccin-macchiato.itermcolors` | import manually in iTerm2 |

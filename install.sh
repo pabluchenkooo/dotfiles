@@ -73,7 +73,10 @@ link_all() {
 
   # Claude Code
   link claude/statusline.sh            "$HOME/.claude/statusline.sh"
-  link claude/skills/address-pr-review "$HOME/.claude/skills/address-pr-review"
+  for skill in "$DOTFILES"/claude/skills/*/; do
+    skill="$(basename "$skill")"
+    link "claude/skills/$skill" "$HOME/.claude/skills/$skill"
+  done
   seed claude/settings.json            "$HOME/.claude/settings.json"
 
   # Codex

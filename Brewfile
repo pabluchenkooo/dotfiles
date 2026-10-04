@@ -36,8 +36,10 @@ brew "hugo"
 brew "imagemagick"
 # Handy way to save and run project-specific commands
 brew "just"
+brew "derailed/k9s/k9s"
 # Simple terminal UI for git commands
 brew "lazygit"
+brew "lazydocker"
 # Postgres C API library
 brew "libpq", link: true
 # Ambitious Vim-fork focused on extensibility and agility

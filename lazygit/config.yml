@@ -1,0 +1,6 @@
+customCommands:
+  - key: "<c-g>"
+    context: "files"
+    description: "AI commit message"
+    command: "git pcom"
+    subprocess: true

@@ -1,0 +1,35 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# ── oh-my-zsh ─────────────────────────────────────────────────────────────────
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+plugins=(git)
+source $ZSH/oh-my-zsh.sh
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# ── secrets ───────────────────────────────────────────────────────────────────
+# Only global keys live in ~/.secrets.zsh (not in git, see zsh/secrets.zsh.example).
+# Project keys belong in that project's .envrc (direnv, hooked below).
+[[ -f ~/.secrets.zsh ]] && source ~/.secrets.zsh
+
+# ── PATH ──────────────────────────────────────────────────────────────────────
+if [[ -d /opt/homebrew ]]; then
+  export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+  export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+fi
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+
+# auto-attach to a single tmux session (not inside editor terminals)
+if command -v tmux &>/dev/null && [ -z "$TMUX" ] && [[ "$TERM_PROGRAM" != (vscode|zed) ]]; then
+  tmux new-session -A -s main
+fi
+
+command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
+
+# machine-specific overrides (not in git)
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

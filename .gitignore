@@ -1,0 +1,5 @@
+.DS_Store
+secrets.zsh
+*.local
+.secrets*
+!zsh/secrets.zsh.example

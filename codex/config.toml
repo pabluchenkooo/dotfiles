@@ -1,0 +1,10 @@
+model = "gpt-6-astra"
+model_reasoning_effort = "medium"
+
+[tui]
+status_line = ["model-with-reasoning", "context-used", "five-hour-limit", "weekly-limit", "estimated-thread-cost", "used-tokens", "git-branch"]
+
+[desktop]
+followUpQueueMode = "steer"
+conversationDetailMode = "STEPS_PROSE"
+avatar-overlay-pet-visible = false

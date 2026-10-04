@@ -1,0 +1,17 @@
+font-family = "JetBrainsMono Nerd Font"
+font-size = 13
+scrollback-limit = 10000
+
+# Left Option acts as Alt (so ⌥-based keymaps like minuet's work).
+# Right Option still types accented characters (å, ´, ü, etc.).
+macos-option-as-alt = left
+shell-integration = zsh
+window-decoration = true
+
+# transparency
+background-opacity = 0.85
+background-blur-radius = 20
+
+# tabs
+window-theme = dark
+macos-titlebar-style = tabs

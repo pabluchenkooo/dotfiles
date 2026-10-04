@@ -44,6 +44,14 @@ install_packages() {
       curl -fsSL "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-${arch}.tar.gz" | sudo tar xz -C /opt
       sudo ln -sf "/opt/nvim-linux-${arch}/bin/nvim" /usr/local/bin/nvim
     fi
+    # lazygit isn't in apt on older Debian/Ubuntu — grab the release build
+    if ! command -v lazygit &>/dev/null; then
+      lg_arch="$(uname -m)"; [[ "$lg_arch" == "aarch64" ]] && lg_arch="arm64"
+      lg_tag="$(curl -fsSL -o /dev/null -w '%{url_effective}' https://github.com/jesseduffield/lazygit/releases/latest)"
+      lg_version="${lg_tag##*/v}"
+      curl -fsSL "https://github.com/jesseduffield/lazygit/releases/download/v${lg_version}/lazygit_${lg_version}_Linux_${lg_arch}.tar.gz" \
+        | sudo tar xz -C /usr/local/bin lazygit
+    fi
     mkdir -p "$HOME/.local/bin"
     command -v fd &>/dev/null || ln -sf "$(command -v fdfind)" "$HOME/.local/bin/fd"
   else

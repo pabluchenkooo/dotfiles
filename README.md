@@ -13,6 +13,7 @@ cd ~/dotfiles && ./install.sh
 - **Debian/Ubuntu VPS**: installs the core (zsh, tmux, neovim, lazygit, ripgrep, fd, direnv, git) plus everyday CLI (gh, node, claude, uv, yazi, just, age, lazydocker), networking (wireguard-tools, nmap, cloudflared) and docker (engine + compose) and infra (tfenv/terraform, helm, k9s, hcloud, gcloud, codex, 1password-cli), then symlinks (skips Ghostty/Zed).
 - Existing files get moved to `~/.dotfiles-backup/<timestamp>/` before linking.
 - `./install.sh --links` only re-links, without installing packages.
+- `./install.sh --only nvim,tmux` installs and links just those components (`zsh git tmux nvim lazygit k9s claude codex ghostty zed`); combine with `--links` to only re-link them.
 
 After install:
 1. Fill in `~/.secrets.zsh` (API keys; template in `zsh/secrets.zsh.example`). **Never commit it.**

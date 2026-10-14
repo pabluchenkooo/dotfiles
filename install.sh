@@ -239,6 +239,8 @@ install_claude() {
 }
 links_claude() {
   link claude/statusline.sh "$HOME/.claude/statusline.sh"
+  link claude/CLAUDE.md "$HOME/.claude/CLAUDE.md"
+  link claude/hooks "$HOME/.claude/hooks"
   for skill in "$DOTFILES"/claude/skills/*/; do
     skill="$(basename "$skill")"
     link "claude/skills/$skill" "$HOME/.claude/skills/$skill"

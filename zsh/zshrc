@@ -1,3 +1,9 @@
+# auto-attach to a single tmux session (not inside editor terminals).
+# Must run before the p10k instant prompt, which takes over the terminal.
+if command -v tmux &>/dev/null && [ -z "$TMUX" ] && [[ -t 0 ]] && [[ "$TERM_PROGRAM" != (vscode|zed) ]]; then
+  tmux new-session -A -s main
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -23,11 +29,6 @@ if [[ -d /opt/homebrew ]]; then
   export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 fi
 export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
-
-# auto-attach to a single tmux session (not inside editor terminals)
-if command -v tmux &>/dev/null && [ -z "$TMUX" ] && [[ "$TERM_PROGRAM" != (vscode|zed) ]]; then
-  tmux new-session -A -s main
-fi
 
 command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
 

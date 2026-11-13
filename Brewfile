@@ -68,6 +68,10 @@ brew "rustup"
 brew "terraform"
 # Terraform version manager inspired by rbenv
 brew "tfenv"
+# Matrix client for Vim addicts
+brew "iamb"
+# Mac App Store command-line interface
+brew "mas"
 # Terminal multiplexer
 brew "tmux"
 # Display directories as trees (with optional color/HTML output)
@@ -88,3 +92,17 @@ cask "docker-desktop"
 cask "font-jetbrains-mono-nerd-font"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
+# Apps
+cask "brave-browser"
+cask "chatgpt"
+cask "claude"
+cask "ghostty"
+cask "linear-linear"
+cask "localsend"
+cask "obsidian"
+cask "slack"
+cask "spotify"
+cask "sublime-text"
+cask "tableplus"
+# App Store only; needs you signed in to the App Store
+mas "WireGuard", id: 1451685025

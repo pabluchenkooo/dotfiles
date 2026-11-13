@@ -33,7 +33,7 @@ seed() {
 has() { command -v "$1" &>/dev/null; }
 
 # components selectable with --only; each has a links_<name> and optionally an install_<name>
-COMPONENTS=(zsh git tmux nvim lazygit k9s claude codex ghostty zed)
+COMPONENTS=(zsh git tmux iamb nvim lazygit k9s claude codex ghostty zed)
 
 ensure_brew() {
   has brew && return
@@ -192,7 +192,12 @@ install_tmux() {
   pkg git git; pkg tmux tmux
   [[ -d "$HOME/.tmux/plugins/tpm" ]] || git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 }
-links_tmux() { link tmux/tmux.conf "$HOME/.tmux.conf"; }
+links_tmux() {
+  link tmux/tmux.conf      "$HOME/.tmux.conf"
+  link tmux/chat-toggle.sh "$HOME/.config/tmux/chat-toggle.sh"
+}
+# only the config; profiles/ holds the Matrix session and keys, never commit it
+links_iamb() { seed iamb/config.toml "$HOME/.config/iamb/config.toml"; }
 
 # neovim plus what LazyVim needs (git, ripgrep, fd, a C compiler for treesitter)
 install_nvim() {

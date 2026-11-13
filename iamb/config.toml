@@ -1,0 +1,7 @@
+default_profile = "me"
+
+[profiles.me]
+user_id = "@you:example.org"  # set your Matrix ID; this file is copied once, never linked
+
+[settings.notifications]
+enabled = true

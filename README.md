@@ -38,6 +38,7 @@ Claude skills: `code-constitution`, `elixir-antipatterns`, `review-branch`, `rev
 | `codex/` | `~/.codex` (AGENTS.md linked, config seeded once) |
 | `bin/` | `~/bin` |
 | `macos/catppuccin-macchiato.itermcolors` | import manually in iTerm2 |
+| `macos/keymap.plist` (Caps→Esc, Globe→Ctrl) | `~/Library/LaunchAgents/` (copied; `--only macos` also frees Ctrl-Space) |
 
 Settings files that apps rewrite themselves (Claude/Codex `settings.json`/`config.toml`) are **copied** on first install rather than symlinked, so they don't get clobbered.
 

@@ -33,7 +33,7 @@ seed() {
 has() { command -v "$1" &>/dev/null; }
 
 # components selectable with --only; each has a links_<name> and optionally an install_<name>
-COMPONENTS=(zsh git tmux iamb nvim lazygit k9s claude codex ghostty zed)
+COMPONENTS=(zsh git tmux iamb nvim lazygit k9s claude codex ghostty zed macos)
 
 ensure_brew() {
   has brew && return
@@ -195,6 +195,9 @@ install_tmux() {
 links_tmux() {
   link tmux/tmux.conf      "$HOME/.tmux.conf"
   link tmux/chat-toggle.sh "$HOME/.config/tmux/chat-toggle.sh"
+  # fetch the plugins (catppuccin bar etc.) now; TPM reads the plugin list from the linked ~/.tmux.conf
+  [[ -x "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]] && "$HOME/.tmux/plugins/tpm/bin/install_plugins"
+  return 0
 }
 # only the config; profiles/ holds the Matrix session and keys, never commit it
 links_iamb() { seed iamb/config.toml "$HOME/.config/iamb/config.toml"; }
@@ -265,6 +268,19 @@ links_codex() {
 }
 
 links_ghostty() { link ghostty/config "$HOME/.config/ghostty/config"; }
+# keyboard: free Ctrl-Space for the tmux prefix, Caps Lock -> Escape, Globe -> Control
+links_macos() {
+  local hk=com.apple.symbolichotkeys
+  # 60/61 = "select previous/next input source" (Ctrl-Space / Ctrl-Opt-Space)
+  defaults write $hk AppleSymbolicHotKeys -dict-add 60 '{enabled = 0; value = { parameters = (32, 49, 262144); type = standard; }; }'
+  defaults write $hk AppleSymbolicHotKeys -dict-add 61 '{enabled = 0; value = { parameters = (32, 49, 786432); type = standard; }; }'
+  /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+  # copied, not linked: launchd wants a real file it owns
+  local agent="$HOME/Library/LaunchAgents/local.keymap.plist"
+  mkdir -p "$(dirname "$agent")"; cp "$DOTFILES/macos/keymap.plist" "$agent"
+  launchctl bootout "gui/$UID" "$agent" 2>/dev/null; launchctl bootstrap "gui/$UID" "$agent"
+  log "macOS keyboard: Ctrl-Space freed, Caps Lock -> Escape, Globe -> Control"
+}
 links_zed() {
   link zed/settings.json "$HOME/.config/zed/settings.json"
   link zed/keymap.json   "$HOME/.config/zed/keymap.json"
@@ -273,8 +289,8 @@ links_zed() {
 link_all() {
   local c
   for c in "${COMPONENTS[@]}"; do
-    # Ghostty and Zed configs are macOS-only
-    [[ "$OS" != "Darwin" && ( "$c" == ghostty || "$c" == zed ) ]] && continue
+    # Ghostty, Zed and keyboard settings are macOS-only
+    [[ "$OS" != "Darwin" && ( "$c" == ghostty || "$c" == zed || "$c" == macos ) ]] && continue
     "links_$c"
   done
 }
@@ -318,4 +334,4 @@ if [[ -z "$links_only" ]]; then
   install_tmux
 fi
 link_all
-log "done. Open tmux and press prefix (Ctrl-Space) + I to install tmux plugins."
+log "done. Open a new terminal to start tmux."

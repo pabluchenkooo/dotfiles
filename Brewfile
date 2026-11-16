@@ -4,6 +4,8 @@ tap "minio/stable"
 brew "age"
 # Extendable version manager with support for Ruby, Node.js, Erlang & more
 brew "asdf"
+# Bash 4+ (macOS ships 3.2); tmux-pane-tree needs it
+brew "bash"
 # Snapshot testing CLI for Rust
 brew "cargo-insta"
 # Next-generation test runner for Rust
